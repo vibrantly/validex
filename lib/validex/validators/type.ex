@@ -17,7 +17,7 @@ defmodule Validex.Validators.Type do
     types = ~w[function nil integer list map float atom tuple pid port reference boolean]
 
     def valid_type?(:__validex_missing__, _), do: true
-    def valid_type?(v, :string), do: String.valid?(v)
+    def valid_type?(v, :string) when is_binary(v), do: String.valid?(v)
     def valid_type?(v, :number) when is_float(v) or is_integer(v), do: true
     def valid_type?(%{__struct__: module}, module), do: true
     def valid_type?(_, :any), do: true
